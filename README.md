@@ -129,3 +129,24 @@
         }
     }
     ```
+  ### 인텐트를 이용한 데이터 전달
+  ```
+  /**
+  * 액티비티에서 다른 액티비티로 데이터 전달
+  */
+  change_activity.setOnClickListener {
+      val intent = Intent(this, SubActivity::class.java)
+      intent.apply {
+          intent.putExtra("Name", "홍길동")
+          intent.putExtra("Age", 23)
+          intent.putExtra("Gender", "남자")
+      }
+      startActivity(intent)
+  }
+  /**
+  * 다른 액티비티에서 받은 intent 값
+  */
+  val Name = intent.getStringExtra("Name")
+  val Age = intent.getIntExtra("Age", 0)
+  val Gender = intent.getStringExtra("Gender")  
+  ```
