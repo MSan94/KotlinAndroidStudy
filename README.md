@@ -56,3 +56,30 @@
     - 활동이 소명되지 전 호출
     - 소명시 ViewModel 객체를 이용하여 Activity의 뷰 데이터 보관
     - Activity에 있는 데이터를 더이상 쓰지 않는다면 onDestory()에서 모두 
+
+## 익명함수란 무엇일까
+  - 익명함수
+    - 이름이 없는 함수/클래스
+    - 이름을 만들어줄 필요가 없다.
+    - 한번만 사용
+    ```
+     // 람다 방식
+     private val textView : TextView by lazy { findViewById(R.id.textView) }
+     textView.setOnClickListener{
+         Log.d("MainActivity", "클릭됨")
+     }
+     
+     // 익명함수 방식
+     textView.setOnClickListener(object : View.OnClickListener{
+        override fun onClick(v : View?){
+          Log.d("MainActivity", "클릭됨")
+        }
+      })
+      
+      // 이름이 필요한 경우(click)
+      var click = object : View.OnClickListener{
+        override fun onClick(v : View?){
+        }
+      }
+      hello.setOnClickListener(click)
+    ```
