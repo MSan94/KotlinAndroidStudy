@@ -1,7 +1,7 @@
 # KotlinAndroidStudy
 코틀린을 이용한 Android 개발 공부 레파지토리 입니다.
 
-# 2021-04-24  Activity & XML 
+# 2021-04-24  Activity & XML & Intent
 
 ## Activity란 무엇일까?
 - 하나의 화면을 가지고 있는 어플리케이션의 한 요소
@@ -82,4 +82,50 @@
         }
       }
       hello.setOnClickListener(click)
+    ```
+
+## Intent란 무엇일까
+  - 인텐트는 4대 컴포넌트간 통신을 위한 메시지
+  - 인텐트의 사용
+    - Activity와 Activity , Android System 과 myApp , otherApp 과 myApp (무작정 사용 x)
+  - 인텐트를 사용하는 방법은 일반적으로는 3가지
+    - 액티비티의 시작 , 서비스의 시작, 브로드케스트 전달
+  - 명시적 인텐트 : 시작할 컴포넌트 이름을 지정, 일반적으로 본인이 만든 컴포넌트를 실행 시 사용
+    - ex) new Intent(contenxt, 클래스이름) ,  intent.setClass(context, 클래스이름)
+    ```
+    Intent intent = new Intent(this, SecondaryActivity.class);
+    startActivity(intent);
+    ```
+  - 암시적 인텐트 : 특정 컴포넌트의 클래스명 없이 어떠한 작업을 수행할 것인지만 선언
+    - 해당 인텐트를 처리할 수 있는 컴포넌트를 시스템이 필터링하여 수행하거나 사용자에게 선택
+    ```
+    Uri uri = Uri.parse("tel:xxx");
+    Intent intent = new Intent(Intent.ACTION_DIAL, uri);
+    startActivity(intent);
+    ```
+  ### 인텐트를 이용한 화면 전환
+    - MainActivity
+    ```
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        val change_activity : Button by lazy { findViewById(R.id.change_activity) }
+
+        change_activity.setOnClickListener {
+            val intent = Intent(this, SubActivity::class.java)
+            startActivity(intent)
+        }
+    }
+    ```
+    - SubActivity
+    ```
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_sub)
+        val change_activity : Button by lazy { findViewById(R.id.change_activity) }
+        change_activity.setOnClickListener {
+            finish() //돌아가기 
+        }
+    }
     ```
