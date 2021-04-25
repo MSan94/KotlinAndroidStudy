@@ -5,4 +5,4 @@
 - 하나의 Activity에서 Fragment를 통해 역할(화면)을 분할
 - Fragment는 Activity에 종속적이면 LifeCycle이 존재한다.
 
-![image](https://user-images.githubusercontent.com/81352078/116002239-baa74780-a633-11eb-8214-4c5de9b31801.png)
+![image](https://user-images.githubusercontent.com/81352078/116002246-c09d2880-a633-11eb-8449-a89e6385284d.png)
