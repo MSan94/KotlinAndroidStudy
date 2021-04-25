@@ -151,7 +151,9 @@
   val Gender = intent.getStringExtra("Gender")  
   ```
   ### 인텐트 결과 반환값 확인
-    - SubActivity에서 결과를 ResultCode를 통해 결과를 반환할 수 있다.
+  ```
+  ```
+  - SubActivity에서 결과를 ResultCode를 통해 결과를 반환할 수 있다.
       - Activity.RESULT_OK  -> -1
       - Activity.RESULT_CANCELED -> 0
       - Activity.RESULT_FIRST_USER -> 1
