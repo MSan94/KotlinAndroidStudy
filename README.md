@@ -150,3 +150,43 @@
   val Age = intent.getIntExtra("Age", 0)
   val Gender = intent.getStringExtra("Gender")  
   ```
+  ### 인텐트 결과 반환값 확인
+    - SubActivity에서 결과를 ResultCode를 통해 결과를 반환할 수 있다.
+      - Activity.RESULT_OK  -> -1
+      - Activity.RESULT_CANCELED -> 0
+      - Activity.RESULT_FIRST_USER -> 1
+    - 결과를 보내기만 할 때는 startActivity() 를 사용했지만 
+    - 반환값을 받기 위해서는 startActivityForResult(intent,requestCode)를 통해 인텐트를 보낸다.
+    - requestCode는 여러 액티비티에 반환할 수도 있기에 액티비티만의 코드를 설정하는 것
+    - 결과값을 반환받기 위해서는 onActivityResult() 메서드를 사용한다.
+  ```
+  <MainActivity>
+  
+  change_activity.setOnClickListener {
+       val intent = Intent(this, SubActivity::class.java)
+       intent.apply {
+           intent.putExtra("Name", "홍길동")
+           intent.putExtra("Age", 23)
+           intent.putExtra("Gender", "남자")
+       }
+       startActivityForResult(intent,200)
+  }
+  
+  override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(requestCode == 200){
+            val data = data?.getStringExtra("data")
+            Toast.makeText(this,"$requestCode, $resultCode , $data", Toast.LENGTH_SHORT).show()
+        }
+  }
+  ```
+  ```
+  <SubActivity>
+  
+  change_activity.setOnClickListener {
+    val result = Intent()
+    result.putExtra("data", "성공")
+    setResult(Activity.RESULT_OK, result)
+    finish() //돌아가기
+  }
+  ```
