@@ -159,6 +159,7 @@
     - 반환값을 받기 위해서는 startActivityForResult(intent,requestCode)를 통해 인텐트를 보낸다.
     - requestCode는 여러 액티비티에 반환할 수도 있기에 액티비티만의 코드를 설정하는 것
     - 결과값을 반환받기 위해서는 onActivityResult() 메서드를 사용한다.
+    
   ```
   <MainActivity>
   
