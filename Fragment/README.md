@@ -58,7 +58,7 @@
 - 프래그먼트가 액티비티로부터 해제
 
 ## Fragment와 Activity간 생명주기 호출 순서
-- 
+- F : Fragment
 ```
 2021-04-12 02:01:48.942 6939-6939/com.example.aop_part2.fragment D/life_Cycle: F onAttach
 2021-04-12 02:01:48.942 6939-6939/com.example.aop_part2.fragment D/life_Cycle: F onCreate
