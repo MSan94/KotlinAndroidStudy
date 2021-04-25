@@ -100,7 +100,7 @@
     - 해당 인텐트를 처리할 수 있는 컴포넌트를 시스템이 필터링하여 수행하거나 사용자에게 선택
     ```
     Uri uri = Uri.parse("tel:xxx");
-    Intent intent = new Intent(Intent.ACTION_DIAL, uri);
+    Intent intent = new Intent(Intent.ACTION_VIEW, uri);
     startActivity(intent);
     ```
   ### 인텐트를 이용한 화면 전환
