@@ -32,11 +32,23 @@
 - 레이아웃들을 inflate하며, View 객체를 얻을 수 있다.
 - 일반적으로 Activity에서는 OnCreate()에서 Button, Text들을 초기화하지만, 프래그먼트는 onCreateView()에서 초기화
 ```
+    // View를 그리는 역할
+    // 프래그먼트가 인터페이스를 처음 그릴 때 호출
+    // inflater : 뷰를 그려주는 역할
+    // container : 부모 뷰
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val rootVeiw = inflater.inflate(R.layout.fragment_one,container,false)
         return rootVeiw
     }
 ```
+
+## onViewCreated()
+- onCreateView에서 return 해준 View를 가지고 있다.
+- view.findViewById()를 통해 사용
+
+## onActivityCreated()
+- Activity와 Fragment의 뷰가 모두 생성된 상태
+- View를 변경하는 작업 가능
 
 ## onStart()
 - 사용자에게 Fragment가 보여지도록 한다.
@@ -71,3 +83,48 @@
 2021-04-12 02:01:48.949 6939-6939/com.example.aop_part2.fragment D/life_Cycle: onResume
 2021-04-12 02:01:48.949 6939-6939/com.example.aop_part2.fragment D/life_Cycle: F onResume
 ```
+
+## Fragment 사용 방법
+- XML에 의한 ViewComponent추가
+    - activity_main.xml
+    ```
+    <?xml version="1.0" encoding="utf-8"?>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hello World"
+        android:textSize="50dp" />
+
+    <!-- 아이디를 반드시 지정-->
+    <fragment
+        android:id="@+id/fragment_one"
+        android:name="com.example.aop_part2.fragment.fragment.FragmentOne"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"/>
+    </LinearLayout>
+    ```
+    - fragment_one.xml
+    ```
+    <?xml version="1.0" encoding="utf-8"?>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/purple_200">
+    </LinearLayout>
+    ```
+    - fragmentOne.kt
+    ```
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return inflater.inflate(R.layout.fragment_one, container,false)
+    }
+    ```
+- 코드를 이용한 동적 추가
