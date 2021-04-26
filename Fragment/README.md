@@ -239,3 +239,44 @@
         }
     }
     ```
+    
+# 2021.04.25 FragmentManager
+## 프레그먼트 관리
+- FragmentManager
+    - 프래그먼트 프랜잭션 (Fragment Transaction)
+        - 액티비티가 사용자의 입력 이벤트에 따라 프래그먼트를 추가 및 삭제 그리고 교체 작업을 수행하게 도와준다.
+        - 프래그먼트 백스텍(Fragment Backstack)을 통해 저장
+    - 액티비티와의 통신
+        - 단일 프래그먼트에 대한 세부적인 작업 가능
+    
+        - 프래그먼트 내 구성요소들 하나하나에 접근 할 수 있도록 도와준다.
+        - 특정 이벤트 발생 시 프래그먼트에서 적절한 UI 동작을 할 수 있도록 구현
+- FragmentTransaction
+    - 프래그먼트 백 스택 관리, 프래그먼트 전환 애니메이션 설정등을 수행
+    - 프래그먼트 트랜잭션 설정
+        - 선언
+            - Kotlin : val fragmentManager = supportFragmentManager
+            - Java : FragmentManager fragmentManager = getSupportFragmentManager()
+        - 시작
+            - kotlin : val fragmentTransaction = fragmentManager.beginTransaction()
+            - Java : FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction()
+        - 끝
+            - 공통 : fragmentManager.commit()
+    - 프래그먼트 백스택 (Fragment BackStack)
+        - 현재 실행하려는 트랜잭션의 상태를 기억해두기 위해 만들어진 개념
+        - Back Key를 통해 프래그먼트를 이전 상태로 되돌릴 수 있다.
+        - transaction.addToBackStack(null)
+    - 액티비티와의 통신
+        - 액티비티와 프래그먼트는 연결이 되어 있다면 서로의 자원에 직접적으로 접근 가능
+        - Activity -> Fragment, Fragment -> Activity 방법은 다르다.
+    - Activity -> Fragment 자원 접근
+        - FragmentManager에 속한 findFragmentById() 또는 findFragmentByTag()로 원하는 프래그먼트의 참조를 가져올 수 있다.
+        - findFragmentById() : 레이아웃이 있는 프래그먼트 참조
+        - findFragmentByTag() : 레이아웃이 없는 프래그먼트 참조
+        - kotlin : val fragment : FragmentOne = supportFragmentManager.findFragmentById(R.id.프래그먼트컨테이너) as FragmentOne
+        - Java : FragmentOne fragment  (FragmentOne) getSupportFragmentManager().findFragmentById(R.id.프래그먼트컨테이너);
+        - **꼭 프래그먼트 매니저를 통해 참조값을 받아와야 한다.**
+     - Fragment -> Activity 자원 접근
+        - getActivity
+        - kotlin : val button = activity?.findViewById(R.id.button)
+        - Java : TextView textView = (TextView) getActivity().findViewById(R.id.textView1);
