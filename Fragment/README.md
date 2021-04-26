@@ -280,3 +280,25 @@
         - getActivity
         - kotlin : val button = activity?.findViewById(R.id.button)
         - Java : TextView textView = (TextView) getActivity().findViewById(R.id.textView1);
+
+## Activity <-> Fragment 데이터 전송
+- Activity -> Fragment
+    - Bundle이라는 Map 클래스를 사용한다.
+    - 프래그먼트의 arguments를 통해 Bundle 할당
+    - Fragment의 경우 onActivityCreated()에서 데이터를 받는다.
+    
+    - MainActivity.kt
+    ```
+        val fragmentOne = FragmentOne()
+        val bundle = Bundle()
+        bundle.putString("Key", "Hello")
+        fragmentOne.arguments = bundle
+    ```
+    - FragmentOne.kt
+    ```
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        var data = arguments?.getString("Key")
+        Toast.makeText(context,"$data",Toast.LENGTH_SHORT).show()
+        super.onActivityCreated(savedInstanceState)
+    }
+    ```
