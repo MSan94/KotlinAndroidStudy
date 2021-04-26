@@ -302,3 +302,30 @@
         super.onActivityCreated(savedInstanceState)
     }
     ```
+- Fragment -> Activity
+    - 리스너 구현
+    - FragmentOne.kt ( Interface를 통해 리스너구현 , onAttach()에서 형변환 , onViewCreated()에서 리스너 사용 )
+    ```
+    interface onDataPassListener{
+        fun onDataPass(data : String?)
+    }
+    lateinit var dataPassListener: onDataPassListener
+    ...
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        dataPassListener = context as onDataPassListener //형변환
+    }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        dataPassListener.onDataPass("프래그먼트입니다.")
+    }
+    ```
+    - MainActivity.kt ( 리스너 상속 , 오버라이딩을 통해 구현 )
+    ```
+    class MainActivity : AppCompatActivity() , FragmentOne.onDataPassListener {
+    ...
+        override fun onDataPass(data: String?) {
+            Toast.makeText(this,"$data", Toast.LENGTH_SHORT).show()
+        }
+    }
+    ```
