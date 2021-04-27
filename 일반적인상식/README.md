@@ -20,3 +20,17 @@ Q12. 액티비티간 데이터 전달에서 임의의 클래스 객체를 바로
    
  Q31. 안드로이드의 컨텍스트(context) 객체에 대해 설명하시오.
 Q32. 액티비티의 4가지 launchMode에 대해서 비교 설명하시오.
+
+ ARM64-v8a(64), ARMv7, ARMx86 등.. ABI(Application binary interface)가 무엇인가요?
+ 
+ 4. 바이트 코드를 안드로이드에서 바로 실행할 수 있나요 ?
+> 바로 실행할 수 없다. Java 바이트 코드를 실행하려면 JVM (Java Virtual Machine)이 필요하지만,  안드로이드는 JVM 대신 Dalvik VM 을 사용하여,  메모리, 배터리 수명 및 성능에 더 초점을 맞춰 개발이 되었기 때문에 실행할수 없다.(라이센스 문제도 있었다고 한다.) 또한  dx 라는 안드로이드 도구를 사용하여 Java 클래스 파일을 Dalvik 실행 파일(.dex 파일)로 바꿔 실행한다.
+Dalvik VM : 32비트만 지원 (JIT 컴파일러 - 실행하면 만들어 놓고)
+ART VM : 32비트, 64 비트 모두 지원 (AOT 컴파일러 - 미리 만들어 놓고)
+
+5. 빌드타입이 무엇인가요?
+
+> 빌드타입이란 현재 사용하고 있는 라이브러리, 모듈 등의 빌드 방법을 정의하는 것이다. 안드로이드 앱이 패키징 되고, 빌드 될 때 그래들을 사용하여 빌드 타입을 정의할 수있다. 빌드할 때 추가되어야하는 리소스를 분리하여 적용할 수 있다. 또한 build variant 와 다양하게 조합해서 제품의 flavours 나 build type 을 정의할 수 있다.
+Ex) flavor = [local, dev, stage, real]
+Ex) buildType = [debug, release]
+localDebug, localRelease, devDebug, devRelease, stageDebug, stageRelease, realDebugm realRelease 등.
