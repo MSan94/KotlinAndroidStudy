@@ -36,7 +36,7 @@ public class MyService extends Service{
   - 로컬 서비스 구현
   ![image](https://user-images.githubusercontent.com/81352078/116173533-b704e500-a747-11eb-9ef4-fe39e24ebe17.png)
   - 원격 서비스 구현
-  ![Uploading image.png…]()
+  ![image](https://user-images.githubusercontent.com/81352078/116173567-ca17b500-a747-11eb-8004-c34913d87461.png)
 
 ## BroadCast Receiver
 - Android OS에서 발생하는 이벤트와 정보를 핸들링
