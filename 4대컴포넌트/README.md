@@ -51,7 +51,13 @@ public class MyService extends Service{
 ## BroadCast Receiver
 - Android OS에서 발생하는 이벤트와 정보를 핸들링
 - 배터리부족, 메시지 알림, 네트워크 해제등의 정보를 받아 동작
-
+```
+public class MyReceiver extends BroadcastReceiver {
+    @Override
+    public void onReceive(Context context, Intent intent) {
+    }
+}
+```
 ## Content Provider
 - 데이터를 관리하고 다른 애플리케이션의 데이터를 제공
 - 특정 애플리케이션이 사용되고 있는 DB를 공유하기 위해 사용하며, 애플리케이션간 데이터 공유를 위한 표준 인터페이스 제공
@@ -61,5 +67,30 @@ public class MyService extends Service{
 - Read, Write의 대한 권한(Permission)이 있어야 접근 가능
 - CRUD 원칙 준수
 
+![image](https://user-images.githubusercontent.com/81352078/116173878-5033fb80-a748-11eb-8db5-9ca3c6eb1db2.png)
+```
+public class MyProvider extends ContentProvider {
+    public int delete(Uri uri, String selection, String[] selectionArgs) { 
+        return 0;
+    }
+    public String getType(Uri uri) { 
+        return null;
+    }
+    public Uri insert(Uri uri, ContentValues values) { 
+        return null;
+    }
+    public boolean onCreate() { 
+        return false;
+    }
+    public Cursor query(Uri uri, String[] projection, String selection,
+            String[] selectionArgs, String sortOrder) { 
+        return null;
+    }
+    public int update(Uri uri, ContentValues values, String selection,
+            String[] selectionArgs) { 
+        return 0;
+    }    
+}
+```
 ## MVC로 보는 안드로이드 구조
 ![image](https://user-images.githubusercontent.com/81352078/116173339-5bd2f280-a747-11eb-9c6d-aa3d3002533d.png)
