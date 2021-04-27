@@ -34,8 +34,16 @@ public class MyService extends Service{
 ```
 - 서비스의 생명주기
   - 로컬 서비스 구현
+    - onCreate() : 서비스 생성시 호출
+    - onStart() : startService() 메소드에 의해 서비스 시작 시 호출
+    - onDestory() : 서비스 종료 시 호출
   ![image](https://user-images.githubusercontent.com/81352078/116173533-b704e500-a747-11eb-9ef4-fe39e24ebe17.png)
+  
   - 원격 서비스 구현
+    - onCreate() : 서비스 생성시 호출
+    - onBind() : bindService() 메서드에 의해 서비스 시작 시 호출
+    - onUnbind() : 서비스와 연결이 끊겼을 시 
+    - onDestory() : 서비스 종료 시 호출
   ![image](https://user-images.githubusercontent.com/81352078/116173567-ca17b500-a747-11eb-8004-c34913d87461.png)
 
 ## BroadCast Receiver
