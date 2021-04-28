@@ -1,4 +1,57 @@
-디스플레이(display), 윈도우(window), 서피스(surface), 뷰(view), 뷰 그룹(view group), 뷰 컨테이너(view container), 레이아웃(layout)에 대해서 설명하시오.
+
+## 디스플레이(display), 윈도우(window), 서피스(surface), 뷰(view), 뷰 그룹(view group), 뷰 컨테이너(view container), 레이아웃(layout)
+- 디스플레이
+ - windowManager와 함께 Display 객체를 통해 사이즈를 구할 수 있다.
+ - kotlin
+ ```
+ val display = windowManager.defaultDisplay
+ val size = Point()
+ display.getRealSize(size)
+ val width = size.x
+ val height = size.y
+ ```
+ - java
+ ```
+ Display display = getWindowManager().getDefaultDisplay();
+ Point size = new Point();
+ display.getRealSize(size);
+ int width = size.x;
+ int height = size.y;
+ ```
+- 윈도우
+ - ...
+- 서피스
+ - 하나의 그래픽 버퍼로
+ - canvas가 아닌 surface(가상메모리화면)를 가진다.
+   - Main Thread가 surface를 감지해서 스레드에게 **그리기 허용 여부**를 알려주며, 이는 SurfaceHolder.Callback으로 수행
+ - 처음 생성된 직후 **surfaceCreated(SurfaceHolder holder)가** 호출되며, 이때부터 그리기가 허용
+ - **surfaceDestoryed(SurfaceHolder holder)는** 표면이 파괴되기 직전에 호출되며 리턴 후에는 그리기 불가
+ - **surfaceChanged (SurfaceHolder holder, int format, int width, int height)는** 표면의 색상이나 포맷 변경시 최소한 한번 호출
+- View
+ - 기본 화면을 구성하는 모든 기본 화면의 구성요소
+ - View는 View를 포함할 수 있고, 중첩적으로 사용할 수 있다.
+- ViewGroup
+ - 여러 View를 묶기위한 요소로 View의 배치를 위해 사용
+ - ViewGroup는 View를 상속받고 있기에 View의 속성을 그대로 쓴다.
+ - View의 직접적 자식으로 FrameLayout, GridLayout, LinearLayout, RelativeLayout등이 있다.
+- ViewContainer
+ - 다른 View를 포함하고 있거나 포함할 수 있는 View
+ - 일반적으로 ViewGroup를 상속하면서 Layout이 아닌 클래스를 지칭한다.
+ - 종류
+  - ScrollView
+  - HorizontalScrollView
+  - ListView
+  - TabHost
+  - GridView
+  - Gallery
+  - ViewFilpper
+  - SlidingDrawer
+  - DatePicker
+  - TimePicker
+- Layout
+ - 앱에서 사용자 인터페이스를 위한 구조를 정의
+ - UI 요소를 XML로 선언, 런타임에 레이아웃 요소 인스턴스화 로 선언하는 방법이 2개다.
+![image](https://user-images.githubusercontent.com/81352078/116339457-6ad5a580-a818-11eb-97cb-6b318910a4c5.png)
 
 
 Q12. 액티비티간 데이터 전달에서 임의의 클래스 객체를 바로 전달하지 못하는 이유는 무엇이고 전달하기 위해서는 어떤 처리가 필요한가?
