@@ -27,8 +27,10 @@
 
 ## 앱 컴포넌트
 - 4대 컴포넌트를 앱에서 사용한다면 manifest에 등록해야한다.
-- <activity> , <service> , <receiver> , <provider>
-- 4대 컴포넌트는 각 인텐트에 의해 활성화 되며, 앱이 인텐트를 시스템에 발행 시 각 앱의 manifest에 등록딘 intent-filter에 기초하여 처리할 수 있는 인텐트 컴포넌트를 찾는다.
+```
+<activity> , <service> , <receiver> , <provider>
+```
+- 4대 컴포넌트는 각 인텐트에 의해 활성화 되며, 앱이 인텐트를 시스템에 발행 시 각 앱의 manifest에 등록 intent-filter에 기초하여 처리할 수 있는 인텐트 컴포넌트를 찾는다.
 
 ## 권한
 ```
