@@ -7,6 +7,13 @@
 - project - app에 복사 ( 프로젝트에서 google-service.json을 설치하고 복사해도 Realtime DB 생성 시 google-service.json을 다시받아 복사 붙여넣기 )
 ![image](https://user-images.githubusercontent.com/81352078/117570862-14654280-b107-11eb-8394-027c072a280d.png)
 
+```
+    id 'com.google.gms.google-services'
+    implementation 'com.google.firebase:firebase-analytics'
+    implementation platform('com.google.firebase:firebase-bom:26.8.0')
+    implementation 'com.google.firebase:firebase-auth-ktx'
+```
+
 ## Firebase Email & password 로그인 및 회원가입
 - 먼저 로그인이 되어있지 않을 경우 MainActivity에서 로그인창으로 이동
   - currentUser에 로그인 정보 저장 여부를 확인할 수 있다.
@@ -97,4 +104,35 @@ auth = Firebast.auth
 ## FaceBook 로그인
 ![image](https://user-images.githubusercontent.com/81352078/117572109-5f358900-b10c-11eb-8a8f-0aaca4d9b99f.png)
 - Facebook developer 이동 -> 내 앱 -> 앱 만들기 -> 소비자 (환경에 맞게) -> 앱이름 작성 후 만들기 -> facebook 로그인 설정 -> 안드로이드 -> 왼쪽 설정의 기본설정 -> 앱아이디 복사 후 firebase에 붙여넣기 -> 앱시크릿코드 -> 보기 -> 복사후 firebase에 붙여넣기 -> 변경내용 저장 -> Facebook 로그인의 설정 -> Firebase의 OAuth 리디렉션 URL을 Facebook OAuth 리디렉션 URL에 붙여넣기 -> 변경내용 저장 -> firebase 
+- Facebook 페이지에서 Android SDK 설치
+```
+    implementation 'com.facebook.android:facebook-login:8.2.0'
+    
+    
+buildscript {
+    ext.kotlin_version = "1.4.30"
+    repositories {
+        google()
+        jcenter()
+        mavenCentral() //추가
+    }
+    dependencies {
+        classpath "com.android.tools.build:gradle:4.1.2"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath 'com.google.gms:google-services:4.3.5'
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+}
 
+allprojects {
+    repositories {
+        google()
+        jcenter()
+        mavenCentral() //추가
+    }
+}
+
+```
+![image](https://user-images.githubusercontent.com/81352078/117572911-12ec4800-b110-11eb-871b-dfad62dfa707.png)
+- 패키지 름 작성 후 저장
