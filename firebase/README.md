@@ -92,3 +92,9 @@ auth = Firebast.auth
 ```
 
 ![image](https://user-images.githubusercontent.com/81352078/117572042-0a920e00-b10c-11eb-9501-1e8eb0eeeb55.png)
+
+
+## FaceBook 로그인
+![image](https://user-images.githubusercontent.com/81352078/117572109-5f358900-b10c-11eb-8a8f-0aaca4d9b99f.png)
+- Facebook developer 이동 -> 내 앱 -> 앱 만들기 -> 소비자 (환경에 맞게) -> 앱이름 작성 후 만들기 -> facebook 로그인 설정 -> 안드로이드 -> 왼쪽 설정의 기본설정 -> 앱아이디 복사 후 firebase에 붙여넣기 -> 앱시크릿코드 -> 보기 -> 복사후 firebase에 붙여넣기 -> 변경내용 저장 -> Facebook 로그인의 설정 -> Firebase의 OAuth 리디렉션 URL을 Facebook OAuth 리디렉션 URL에 붙여넣기 -> 변경내용 저장 -> firebase 
+
