@@ -141,3 +141,48 @@ allprojects {
 - https://developers.facebook.com/docs/facebook-login/android
 - 앱선택 -> 리소스 및 메니페스트 수정 -> 패키지 이름 및 기본 클래스를 앱과 연결 (패키지, 기본액티비티 작성)
 ![image](https://user-images.githubusercontent.com/81352078/117573073-f4d31780-b110-11eb-9590-77ffbeeb85c3.png)
+
+- 페이스북 로그인의경우 버튼클릭후 페이스북이 열리고 로그인 완료 후 다시 액티비티 콜백으로 넘어오므로 onActivityResult로 열린다.
+- 콜백 매니저 생성
+```
+private lateinit var callbackManager : CallbackManager
+callbackManager = CallbackManager.Factory.create() //초기화
+
+override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+    super.onActivityResult(requestCode, resultCode, data)
+    callbackManager.onActivityResult(requestCode, resultCode, data)
+}
+```
+- 콜백처리
+```
+private fun initFacebookLoginButton(){
+        val facebookLoginButton = findViewById<LoginButton>(R.id.facebookLoginButton)
+        facebookLoginButton.setPermissions("email", "public_profile") //유저에게 어떤 정보를 가져올건지 권한 추가 (문서참고)
+        facebookLoginButton.registerCallback(callbackManager, object : FacebookCallback<LoginResult>{
+            override fun onSuccess(result: LoginResult) {
+                // 로그인 성공
+                // 액세스 토큰 가져오기
+                val credential = FacebookAuthProvider.getCredential(result.accessToken.token)
+                auth.signInWithCredential(credential) //크리덴셜 넘겨주기
+                    .addOnCompleteListener(this@LoginActivity) { task ->
+                       if(task.isSuccessful){
+                           finish()
+                       }else{
+                           Toast.makeText(this@LoginActivity,"페이스북 로그인에 실패했습니다." ,Toast.LENGTH_SHORT).show()
+                       }
+                    }
+            }
+
+            override fun onCancel() {
+                // 로그인 취소
+            }
+
+            override fun onError(error: FacebookException?) {
+                // 로그인 실패
+                Toast.makeText(this@LoginActivity,"페이스북 로그인에 실패했습니다." ,Toast.LENGTH_SHORT).show()
+            }
+
+        })
+
+    }
+```
