@@ -135,4 +135,9 @@ allprojects {
 
 ```
 ![image](https://user-images.githubusercontent.com/81352078/117572911-12ec4800-b110-11eb-871b-dfad62dfa707.png)
-- 패키지 름 작성 후 저장
+- 패키지 이름 작성 후 저장
+
+## Facebook 로그인 적용
+- https://developers.facebook.com/docs/facebook-login/android
+- 앱선택 -> 리소스 및 메니페스트 수정 -> 패키지 이름 및 기본 클래스를 앱과 연결 (패키지, 기본액티비티 작성)
+![image](https://user-images.githubusercontent.com/81352078/117573073-f4d31780-b110-11eb-9590-77ffbeeb85c3.png)
