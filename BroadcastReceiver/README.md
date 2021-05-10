@@ -40,6 +40,13 @@ class MyReceiver : BroadcastReceiver() {
 
 ```
 
+## 동적으로 BroadcastReceiver 등록
+- 인텐트필터 생성 및 액션 등록
+- Broadcast 익명클래스 생성 및 구현
+- Broadcast, Intent 등록
+- 등록한 Broadcast 종료
+
+
 
 ## 정적 vs 동적
 - 정적 리시버
@@ -49,7 +56,33 @@ class MyReceiver : BroadcastReceiver() {
     - 등록한 해당 컴포넌트의 생명주기에 영향을 받는다.
     - 컴포넌트 안에 변수,메서드에 대한 접근이 유연
     - 등록과 해체가 유연한 만큼 해체에 신경 써야 한다.
-    
+```
+class MainActivity : AppCompatActivity() {
+    private lateinit var broad : BroadcastReceiver
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        var filter = IntentFilter().apply {
+            addAction(Intent.ACTION_SCREEN_ON)
+        }
+        broad = MyReceiver()
+        registerReceiver(broad,filter)
+
+    }
+
+}
+```
+```
+class MyReceiver : BroadcastReceiver() {
+
+    override fun onReceive(context: Context, intent: Intent) {
+        if(intent.action.equals(Intent.ACTION_SCREEN_ON)){
+            Toast.makeText(context,"화면켜짐!!",Toast.LENGTH_SHORT).show()
+        }
+    }
+}
+```
 
 ## 화면 on/off 이벤트 받기
 - BroadcastReceiver에서 action을 받아 화면이 켜질경우 Toast 메시지 출력
