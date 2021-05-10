@@ -45,17 +45,6 @@ class MyReceiver : BroadcastReceiver() {
 - Broadcast 익명클래스 생성 및 구현
 - Broadcast, Intent 등록
 - 등록한 Broadcast 종료
-
-
-
-## 정적 vs 동적
-- 정적 리시버
-    - 한번 등록하면 쉽게 해체 불가 -> 계속적으로 유지
-- 동적 리시버
-    - 등록과 해체 유연
-    - 등록한 해당 컴포넌트의 생명주기에 영향을 받는다.
-    - 컴포넌트 안에 변수,메서드에 대한 접근이 유연
-    - 등록과 해체가 유연한 만큼 해체에 신경 써야 한다.
 ```
 class MainActivity : AppCompatActivity() {
     private lateinit var broad : BroadcastReceiver
@@ -83,6 +72,16 @@ class MyReceiver : BroadcastReceiver() {
     }
 }
 ```
+
+
+## 정적 vs 동적
+- 정적 리시버
+    - 한번 등록하면 쉽게 해체 불가 -> 계속적으로 유지
+- 동적 리시버
+    - 등록과 해체 유연
+    - 등록한 해당 컴포넌트의 생명주기에 영향을 받는다.
+    - 컴포넌트 안에 변수,메서드에 대한 접근이 유연
+    - 등록과 해체가 유연한 만큼 해체에 신경 써야 한다.
 
 ## 화면 on/off 이벤트 받기
 - BroadcastReceiver에서 action을 받아 화면이 켜질경우 Toast 메시지 출력
