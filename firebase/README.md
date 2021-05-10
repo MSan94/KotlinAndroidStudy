@@ -186,3 +186,12 @@ private fun initFacebookLoginButton(){
 
     }
 ```
+
+# 2021.05.10 Realtime Firebase 사용
+
+- DB에서 유저 아이디 가져오기
+```
+implementation 'com.google.firebase:firebase-database-ktx'
+
+val currentUserDB = Firebase.database.reference.child("Users")
+```
