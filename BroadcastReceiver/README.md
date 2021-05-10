@@ -57,7 +57,11 @@ class MainActivity : AppCompatActivity() {
         }
         broad = MyReceiver()
         registerReceiver(broad,filter)
-
+    }
+    
+    override fun onDestroy() {
+        super.onDestroy()
+        unregisterReceiver(broad)
     }
 
 }
