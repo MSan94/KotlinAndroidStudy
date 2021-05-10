@@ -45,3 +45,13 @@ class MainActivity : AppCompatActivity() {
     </intent-filter>
 </receiver>
 ```
+- Log
+```
+2021-05-10 11:01:11.110 24262-24262/com.example.broadcastreceiver D/Receiver: android.intent.action.SCREEN_ON
+2021-05-10 11:01:11.180 24262-24262/com.example.broadcastreceiver D/Receiver: android.intent.action.SCREEN_OFF
+2021-05-10 11:01:15.350 24262-24262/com.example.broadcastreceiver D/Receiver: android.intent.action.SCREEN_ON
+2021-05-10 11:01:17.583 24262-24262/com.example.broadcastreceiver D/Receiver: android.intent.action.SCREEN_OFF
+2021-05-10 11:01:18.647 24262-24262/com.example.broadcastreceiver D/Receiver: android.intent.action.SCREEN_ON
+2021-05-10 11:01:24.713 24262-24262/com.example.broadcastreceiver D/Receiver: android.intent.action.SCREEN_OFF
+2021-05-10 11:01:25.958 24262-24262/com.example.broadcastreceiver D/Receiver: android.intent.action.SCREEN_ON
+```
