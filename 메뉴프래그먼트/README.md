@@ -132,3 +132,183 @@ class MainActivity : AppCompatActivity() {
 
 }
 ```
+
+## HomeFragment 작성
+```
+package com.example.aop_part2.joongo.home
+
+import android.os.Bundle
+import android.provider.MediaStore
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.aop_part2.joongo.R
+import com.example.aop_part2.joongo.databinding.FragmentHomeBinding
+
+class HomeFragment : Fragment(R.layout.fragment_home) {
+
+    //ViewBinding 걸어주기
+    private var binding : FragmentHomeBinding? = null
+    //어댑터
+    private lateinit var articleAdapter : ArticleAdapter
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val fragmentHomeBinding = FragmentHomeBinding.bind(view)
+        binding = fragmentHomeBinding
+
+        // ListAdapter로 RecyclerView 구현
+        articleAdapter = ArticleAdapter()
+
+        // 임의로 데이터 추가
+        articleAdapter.submitList(mutableListOf<ArticleModel>().apply{
+            add(ArticleModel("0","aaaa",100000,"5000원",""))
+            add(ArticleModel("0","bbbb",200000,"10000원",""))
+            add(ArticleModel("0","cccc",300000,"20000원",""))
+            add(ArticleModel("0","dddd",400000,"30000원",""))
+            add(ArticleModel("0","eeee",500000,"40000원",""))
+            add(ArticleModel("0","ffff",600000,"50000원",""))
+        })
+
+        fragmentHomeBinding.articleRecyclerView.layoutManager = LinearLayoutManager(context)
+        fragmentHomeBinding.articleRecyclerView.adapter = articleAdapter
+
+    }
+}
+```
+- 모델
+```
+package com.example.aop_part2.joongo.home
+
+data class ArticleModel(
+    val sellerId : String,
+    val title : String,
+    val createAt : Long,
+    val price : String,
+    val imageUrl :String
+)
+```
+- 어댑터
+```
+package com.example.aop_part2.joongo.home
+
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
+import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.example.aop_part2.joongo.databinding.ItemArticleBinding
+import java.lang.String.format
+import java.text.SimpleDateFormat
+import java.util.*
+
+class ArticleAdapter : ListAdapter<ArticleModel, ArticleAdapter.ViewHolder>(diffUtil) {
+
+    inner class ViewHolder(private val binding: ItemArticleBinding) : RecyclerView.ViewHolder(binding.root){
+        fun bind(articleModel : ArticleModel){
+
+            //날짜로 바꾸기
+            val format = SimpleDateFormat("MM월 dd일")
+            val date = Date(articleModel.createAt)
+
+            binding.titleTextView.text = articleModel.title
+            binding.dateTextView.text = format.format(date).toString()
+            binding.priceTextView.text = articleModel.price
+            if(articleModel.imageUrl.isNotEmpty()) {
+                Glide.with(binding.thumbnailImageView)
+                    .load(articleModel.imageUrl)
+                    .into(binding.thumbnailImageView)
+            }
+        }
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+       return ViewHolder(ItemArticleBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+    }
+
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.bind(currentList[position])
+    }
+
+    companion object{
+        val diffUtil = object : DiffUtil.ItemCallback<ArticleModel>(){
+            // 현재아이템과 새아이템이 같은지
+            override fun areItemsTheSame(oldItem: ArticleModel, newItem: ArticleModel): Boolean {
+                return oldItem.createAt == newItem.createAt
+            }
+            // 현재 노출하고 있는 아이템과 새아이템과 equals 비교
+            override fun areContentsTheSame(oldItem: ArticleModel, newItem: ArticleModel): Boolean {
+                return oldItem == newItem
+            }
+
+        }
+    }
+}
+```
+- 아이템 xml
+```
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingStart="16dp"
+    android:paddingTop="16dp"
+    android:paddingEnd="16dp">
+
+    <ImageView
+        android:id="@+id/thumbnailImageView"
+        android:layout_width="110dp"
+        android:layout_height="110dp"
+        android:layout_marginBottom="16dp"
+        android:scaleType="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/titleTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:maxLines="2"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/thumbnailImageView"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/dateTextView"
+        app:layout_constraintStart_toStartOf="@id/titleTextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/titleTextView"
+        android:layout_marginTop="6dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        app:layout_constraintStart_toStartOf="@id/titleTextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/dateTextView"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:layout_marginTop="6dp"
+        android:id="@+id/priceTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="@color/gray_ec"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+```
