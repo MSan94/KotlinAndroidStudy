@@ -193,3 +193,13 @@
     finish() //돌아가기
   }
   ```
+## Activity 스택에서 제거
+```
+intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+```
+- FLAG_ACTIVITY_NEW_TASK 
+  - 새로운 TASK를 생성합니다.
+- FLAG_ACTIVITY_CLEAR_TASK 
+  -현재 TASK를 비웁니다.
+- FLAG_ACTIVITY_CLAER_TOP 
+  -호출하려는 액티비티가 이미 스택에 쌓여있을 때, 새로 인스턴스를 생성하지 않고 기존의 액티비티를 포그라운드로 가져옵니다. 그리고 액티비티스택의 최상단부터 포그라운드로 가져올 액티비티까지의 모든 액티비티를 삭제합니다.
