@@ -6,6 +6,8 @@
   - 논리적 개념, 싱글코어, 멀티코어 동작
 - 스레드 : 병렬성
   - 물리적 개념, 멀티코어 동작
+
+
 ![image](https://user-images.githubusercontent.com/81352078/119115919-ac95ec80-ba62-11eb-8b49-d20a108efc87.png)
 
 ## 특징
