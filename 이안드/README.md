@@ -9,4 +9,5 @@
 - 2017년 5월 구글에선 코틀린을 안드로이드 공식 언어로 채택
 
 ## 안드로이드 아키텍쳐
--
+![image](https://user-images.githubusercontent.com/81352078/127253471-8b6a3e93-fb87-446b-9911-235bd6bf6e84.png)
+
