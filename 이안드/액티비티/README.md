@@ -69,3 +69,77 @@ class SubActivity : AppCompatActivity(){
   }
 }
 ```
+
+
+
+## 복습
+
+
+```
+package com.example.appstudy
+
+import android.content.Intent
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import android.util.Log
+import com.example.appstudy.databinding.ActivityMainBinding
+
+class MainActivity : AppCompatActivity() {
+
+    val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(binding.root)
+        val intent = Intent(this, SubActivity::class.java);
+        intent.putExtra("name", "안명성")
+        intent.putExtra("age", "26")
+        binding.btnMove.setOnClickListener{
+            startActivityForResult(intent,1000)
+        }
+
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        Log.d("TestValue", " 호출 ${requestCode} , ${resultCode}")
+        if(requestCode == 1000 && resultCode == RESULT_OK){
+            Log.d("TestValue", "성공")
+            binding.textViewVal.text = data?.getStringExtra("returnValue")
+        }else{
+            Log.d("TestValue", "실패")
+        }
+    }
+}
+```
+
+
+```
+package com.example.appstudy
+
+import android.content.Intent
+import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import com.example.appstudy.databinding.ActivitySubBinding
+
+class SubActivity : AppCompatActivity() {
+    val binding by lazy { ActivitySubBinding.inflate(layoutInflater) }
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(binding.root)
+
+        val name = intent.getStringExtra("name")
+        val age = intent.getStringExtra("age")
+
+        binding.textViewName.text = name
+        binding.textViewAge.text = age
+
+        binding.btnFinish.setOnClickListener {
+            val returnVal = Intent()
+            returnVal.putExtra("returnValue", "안녕~~~")
+            setResult(RESULT_OK,returnVal)
+            finish()
+        }
+    }
+}
+```
