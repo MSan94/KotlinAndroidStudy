@@ -282,3 +282,137 @@ class DetailFragment : Fragment() {
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 ```
+
+
+## 프래그먼트에서 프래그먼트 값 전달
+- gradle
+```
+    /* 코틀린에서 프래그먼트 -> 프래그먼트 값 전달 */
+    def fragment_version = "1.3.0-beta02"
+    implementation "androidx.fragment:fragment-ktx:$fragment_version"
+```
+- SenderFragment
+```
+package com.example.appstudy.fragment
+
+import android.os.Bundle
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.core.os.bundleOf
+import androidx.fragment.app.setFragmentResult
+import androidx.fragment.app.setFragmentResultListener
+import com.example.appstudy.databinding.FragmentSenderBinding
+
+class SenderFragment : Fragment() {
+    lateinit var binding : FragmentSenderBinding
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        binding = FragmentSenderBinding.inflate(inflater,container,false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        // btnYes에 클릭 리스너를 달아 리스너 안에 valueKey를 키로, Yes를 값으로 갖는
+        // 번들을 생성 후 bundle 변수에 저장,
+        // setFragmentResultListener메서드를 request와 번들을 입력하여 호출하면 수신측에 전달
+        binding.btnYes.setOnClickListener {
+            val bundle = bundleOf("valueKey" to "Yes")
+            setFragmentResult("request", bundle)
+        }
+        binding.btnNo.setOnClickListener {
+            val bundle = bundleOf("valueKey" to "No")
+            setFragmentResult("request", bundle)
+        }
+    }
+}
+```
+```
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragment.SenderFragment">
+
+    <Button
+        android:id="@+id/btnYes"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/btnNo"
+        android:text="YES"
+        android:layout_width="100dp"
+        android:layout_height="50dp"/>
+    <Button
+        android:id="@+id/btnNo"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/btnYes"
+        android:text="NO"
+        android:layout_width="100dp"
+        android:layout_height="50dp"/>
+</androidx.constraintlayout.widget.ConstraintLayout>
+```
+
+- ReceiverFragment
+```
+package com.example.appstudy.fragment
+
+import android.os.Bundle
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.setFragmentResultListener
+import com.example.appstudy.R
+import com.example.appstudy.databinding.FragmentReceiverBinding
+
+class ReceiverFragment : Fragment() {
+    lateinit var binding: FragmentReceiverBinding
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        binding = FragmentReceiverBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        // request는 요청 전체에 대한 키
+        // 실제값은 bundle안에 Map형태로 담겨있다.
+        // bundle.getString에 입력되는 valueKey는 요청에 담겨 있는 여러 개의 값 중 하나의 값을 가리키는 키
+        // 스코프함수 let을 통해 값이 있을 경우만 꺼내도록 설정
+        setFragmentResultListener("request"){ key , bundle ->
+            bundle.getString("valueKey")?.let{
+                binding.textView.text = it
+            }
+        }
+    }
+}
+```
+```
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragment.ReceiverFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <TextView
+        android:id="@+id/textView"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="@string/hello_blank_fragment" />
+
+</FrameLayout>
+```
