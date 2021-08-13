@@ -5,8 +5,10 @@
   - 주로 앱에서만 사용되는 데이터를 저장
 - 외부 저장소
   - 모든 앱이 함께 사용할 수 있는 공간
-  - <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/> //읽기
-  - <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/> //쓰기
+  ```
+  <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/> //읽기
+  <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/> //쓰기
+  ```
   - 외부 저장소에 기록되는 내용은 사용자가 앱을 제거한 뒤에도 저장되어야 하는 데이터 OR 다른 앱도 접근할 수 있는 데이터
   - ex) 화면 캡처나 다운로드한 파일
 ```
