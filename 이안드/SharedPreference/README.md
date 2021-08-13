@@ -9,6 +9,10 @@
   - <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/> //쓰기
   - 외부 저장소에 기록되는 내용은 사용자가 앱을 제거한 뒤에도 저장되어야 하는 데이터 OR 다른 앱도 접근할 수 있는 데이터
   - ex) 화면 캡처나 다운로드한 파일
+```
+    def preference_version = "1.1.1"
+    implementation "androidx.preference:preference-ktx:$preference_version"
+```
 
 ## 내부 저장소 파일 읽기
 - 파일 사용
