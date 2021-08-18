@@ -98,3 +98,38 @@ CoroutineScope(Dispatchers.Default).async{
 }
 ```
 
+## suspend
+- 코루틴 안에서 suspend 키워드로 선언된 함수가 호출되면 이전까지의 코드 실행이 멈추고, suspend 함수의 처리가 완료된 후 멈춰있던 스코프의 다음 코드가 실행
+```
+suspend fun subRoutine(){
+  for(i in 0..10) {
+    Log.d("subRoutine", "$i")
+  }
+}
+
+CoroutineScope(Dispatchers.Main).launch {
+  // 코드1
+  subRoutine()
+  // 코드2
+}
+```
+- 코드1 실행 -> subRoutine() 실행 -> subRoutine() 모두 실행 된 후 코드2 실행
+- 여기서 subRoutine()은 suspend 키워드를 붙였기 때문에 CoroutineScope 안에서 자동으로 백그라운드 스레드처럼 동작
+- **subRoutine()이 실행되면서 호출한 측의 코드를 잠시 멈췄지만, 스레드의 중단은 없다**
+
+## withContext로 디스패처 분리
+- suspend 함수를 코루틴 스코프에서 호출할 때 호출한 스코프와 다른 디스패처를 사용할 때가 있다.
+- ex) 호출 측 코루틴은 Main 디스패처에서 UI를 제어하는데, 호출되는 suspend 함수는 디스크에서 파일을 읽어와야 하는 경우
+- 이럴때 withContext를 사용해서 호출되는 suspend 함수의 디스패처를 IO를 변경가능
+```
+suspend fun readFile() : String {
+  return "파일내용"
+}
+CoroutineScope(Dispatchers.Main).launch{
+  // 화면처리
+  val result = withContext(Dispatchers.IO){
+    readFile()
+  }
+  ...
+}
+```
